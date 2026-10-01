@@ -2,6 +2,10 @@
 
 A simple web app to track personal expenses. You can add, edit, delete, search by title, filter by category, export your expenses to CSV, and see a quick summary. Data is stored in a PostgreSQL database and served by an Express API.
 
+## 🔗 GitHub Repository
+ 
+[https://github.com/EmranAbdeen/Expense-Tracker]
+
 ## How to run
 
 Requirements: Node.js, PostgreSQL, and VS Code.
