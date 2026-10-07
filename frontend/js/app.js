@@ -80,6 +80,12 @@ function showAlert(message, type = "danger") {
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   `;
+
+  if (type === "success") {
+    setTimeout(() => {
+      alertContainer.innerHTML = "";
+    }, 4000);
+  }
 }
 
 // API functions
@@ -229,6 +235,7 @@ async function handleDelete(id) {
   try {
     await deleteExpense(id);
     await refresh();
+    showAlert("Expense deleted successfully!", "success");
   } catch (error) {
     showAlert("Failed to delete expense: " + error.message, "danger");
   }
@@ -261,28 +268,36 @@ document.addEventListener("DOMContentLoaded", () => {
       categoryInput.classList.remove("is-invalid");
       dateInput.classList.remove("is-invalid");
 
+      var isValid = true;
+
       if (!title) {
         titleInput.classList.add("is-invalid");
+        isValid = false;
       }
 
       if (isNaN(amount) || amount <= 0) {
         amountInput.classList.add("is-invalid");
+        isValid = false;
       }
 
       if (!category) {
         categoryInput.classList.add("is-invalid");
+        isValid = false;
       }
 
       if (!date) {
         dateInput.classList.add("is-invalid");
-        return;
+        isValid = false;
       }
+
+      if (!isValid) return;
 
       showSpinner();
       try {
         await addExpense({ title, amount, category, date });
         addForm.reset();
         await refresh();
+        showAlert("Expense added successfully!", "success");
       } catch (error) {
         showAlert("Failed to add expense: " + error.message, "danger");
       } finally {
@@ -316,6 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.hide();
 
         await refresh();
+        showAlert("Expense updated successfully!", "success");
       } catch (error) {
         showAlert("Failed to update expense: " + error.message, "danger");
       } finally {
