@@ -16,10 +16,8 @@ const pool = new Pool({
 
 app.use(cors());
 
-//! It converts the JSON in the request body into `req.body` (post,put)
 app.use(express.json());
 
-// ={} --> title, amount, category, date = undefined
 function validExpense({ title, amount, category, date } = {}) {
   const errors = [];
   if (typeof title !== "string" || title.trim() === "")
@@ -40,7 +38,6 @@ app.get("/api/expenses", async (req, res) => {
     );
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -64,7 +61,6 @@ app.get("/api/expenses/:id", async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -72,7 +68,6 @@ app.get("/api/expenses/:id", async (req, res) => {
 app.post("/api/expenses", async (req, res) => {
   const errors = validExpense(req.body);
 
-  // اذا كان فيها شي يعني في خطا بناء على دالة لانها بتضيف الخطا
   if (errors.length > 0) {
     return res
       .status(400)
@@ -88,7 +83,6 @@ app.post("/api/expenses", async (req, res) => {
     );
     res.json(result.rows[0]);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -121,7 +115,6 @@ app.put("/api/expenses/:id", async (req, res) => {
 
     res.json({ message: "Updated successfully", updated: result.rows[0] });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -145,7 +138,6 @@ app.delete("/api/expenses/:id", async (req, res) => {
 
     res.json({ message: "Deleted successfully", deleted: result.rows[0] });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Database error" });
   }
 });

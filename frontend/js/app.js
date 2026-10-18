@@ -41,15 +41,10 @@ function exportCSV() {
 
   const csvContent = [headers, ...rows].map((row) => row.join(", ")).join("\n");
 
-  // blob: Binary Large Object
-  // وهو كائن يمثل بيانات يمكن التعامل معها كملف
-
   const blob = new Blob([csvContent], {
     type: "text/csv;charset=utf-8;",
   });
 
-  // يعطي هذا الملف رابطًا مؤقتًا
-  // وبعدها نستخدم <a> لتنزيله.
   const url = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
@@ -57,7 +52,6 @@ function exportCSV() {
   link.download = "expenses.csv";
   link.click();
 
-  // حذف الرابط المؤقت
   URL.revokeObjectURL(url);
 }
 
@@ -219,8 +213,6 @@ function openEditModal(id) {
   document.getElementById("editCategory").value = expense.category;
   document.getElementById("editDate").value = expense.date;
 
-  // هات الـ Modal الموجود
-  //وإذا ما كان له Instance أنشئ واحد.
   const modal = bootstrap.Modal.getOrCreateInstance(
     document.getElementById("editExpenseModal"),
   );
@@ -241,7 +233,6 @@ async function handleDelete(id) {
   }
 }
 
-// Event Listeners Setup
 document.addEventListener("DOMContentLoaded", () => {
   updateDateTime();
 
