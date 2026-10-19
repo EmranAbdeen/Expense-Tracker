@@ -14,7 +14,11 @@ const pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://expense-tracker-emran.netlify.app",
+  }),
+);
 
 app.use(express.json());
 
