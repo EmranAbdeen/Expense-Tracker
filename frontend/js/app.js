@@ -1,5 +1,4 @@
-// const API_URL = "http://localhost:3000/api/expenses";
-const API_URL = "https://expense-tracker-mbhc.onrender.com/api/expenses";
+const API_URL = "http://localhost:3000/api/expenses";
 
 const badgeColors = {
   Food: "success",
